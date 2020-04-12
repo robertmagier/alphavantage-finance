@@ -10,4 +10,4 @@ Requirements:
 * Calculate polynomal and linear regressions. 
 * Configure travis for python
 
-![Plot](https://octodex.github.com/images/yaktocat.png)
+![Plot](./s1.png)
