@@ -8,4 +8,6 @@ Requirements:
 * Generate candlestick chart manually using only plt.bar and plt.plot function. This is only to learn how matplotlib works and also play a little bit more with pandas. 
 * Make sure that X-axis legend is not to dense. 
 * Calculate polynomal and linear regressions. 
+* Configure travis for python
 
+![Plot](https://octodex.github.com/images/yaktocat.png)
