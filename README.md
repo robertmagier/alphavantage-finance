@@ -10,4 +10,4 @@ Requirements:
 * Calculate polynomal and linear regressions. 
 * Configure travis for python
 
-![Plot](./s1.png)
+![Plot](./plot.png)
