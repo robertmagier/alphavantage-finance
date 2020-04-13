@@ -110,7 +110,7 @@ values['predicted_pol'] = predicted_pol
 values.sort_values('x',ascending=False,inplace=True)
 
 
-fig = plt.figure()
+plt.figure(figsize=(15, 15))
 plt.xticks(numpy.arange(0, 102, 11),labels=values['legend'][::11])
 plt.yticks(numpy.arange(104,111,0.5))
 plt.grid()
