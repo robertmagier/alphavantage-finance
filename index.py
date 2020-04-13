@@ -8,14 +8,17 @@ import os
 import json
 import numpy
 from sklearn import linear_model
+import pathlib
+
 
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 from sklearn.pipeline import Pipeline
 
-import prepareData as prep
+import lib.prepareData as prep
 
-DATA_DIR = "/home/robertmagier/projects/finance-api/"
+DATA_DIR = pathlib.Path(__file__).parent.absolute()
+dataFileName='data.json'
 
 
 def _url(func, symbol, interval, apikey):
@@ -30,29 +33,33 @@ def downloadStockData(symbol, interval):
     apiUrl = _url("TIME_SERIES_INTRADAY", symbol, interval, "demo")
     results = requests.get(apiUrl)
     input = json.dumps(results.json())
-    f = open("{}data.json".format(DATA_DIR), "w+")
+    f = open(os.path.join(DATA_DIR,dataFileName), "w+")
     f.write(input)
     f.close()
     return True
 
 
 def readStockJsonData():
-    f = open("{}data.json".format(DATA_DIR), "r+")
+    f = open(os.path.join(DATA_DIR,dataFileName), "r+")
     output = f.read()
     f.close()
     output = json.loads(output)
     return output
 
 
-# downloadStockData("IBM","5min")
 # print(os.getcwd())
 
 
+exists = os.path.exists(os.path.join(DATA_DIR,'data.json'))
+if (exists):
+    output = readStockJsonData()
+else:
+    print('File {} doesn\'t exist. Downloading...'.format(dataFileName))
+    downloadStockData("IBM","5min")
+    output = readStockJsonData()
 
-output = readStockJsonData()
 df = pd.json_normalize(output)
 
-df
 open_columns = list(filter(lambda name: "open" in name, df.columns))
 splitted = open_columns[0].split(' ')[3]
 close_columns = list(filter(lambda name: "close" in name, df.columns))
@@ -133,6 +140,7 @@ plt.bar(
     color="black",
     width=0.1,
 )
+plt.savefig('./plot.png')
 plt.show()
 
 
