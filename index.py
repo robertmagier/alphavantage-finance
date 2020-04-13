@@ -140,7 +140,7 @@ plt.bar(
     color="black",
     width=0.1,
 )
-plt.savefig('./plot.png',dpi=600)
+plt.savefig('./plot.png',dpi=100)
 plt.show()
 
 
