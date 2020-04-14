@@ -61,7 +61,6 @@ else:
 df = pd.json_normalize(output)
 
 open_columns = list(filter(lambda name: "open" in name, df.columns))
-splitted = open_columns[0].split(' ')[3]
 close_columns = list(filter(lambda name: "close" in name, df.columns))
 high_columns = list(filter(lambda name: "high" in name, df.columns))
 low_columns = list(filter(lambda name: "low" in name, df.columns))
@@ -81,11 +80,13 @@ values = values.assign(y_low=pd.Series(y_low.iloc[:, 0].map(float)).values)
 values = values.assign(x=pd.Series(range(len(values.index))).values)
 values = values.assign(time=pd.Series(open_columns).values)
 
-start_value = values.loc[1, ["y_open"]][0]
-values["y_diff"] = values["y_close"] - values["y_open"]
-values["y_color"] = values["y_close"] - values["y_open"]
-values["y_color"] = values["y_color"].map(lambda x: "green" if x > 0 else "red")
+# values["y_diff"] = values["y_close"] - values["y_open"]
+# values["y_color"] = values["y_close"] - values["y_open"]
+# values["y_color"] = values["y_color"].map(lambda x: "green" if x > 0 else "red")
 
+
+values["y_diff"] = values.apply(prep.calculateDiff,axis=1)
+values["y_color"] = values.apply(prep.calculateColor, axis=1)
 values["err_high"] = values.apply(prep.calculateHighError, axis=1)
 values["err_low"] = values.apply(prep.calculateLowError, axis=1)
 values["high_base"] = values.apply(prep.calculateHighBase, axis=1)
@@ -110,7 +111,7 @@ values['predicted_pol'] = predicted_pol
 values.sort_values('x',ascending=False,inplace=True)
 
 
-plt.figure(figsize=(20, 11.25))
+plt.figure(figsize=(20/1.5, 11.25/1.5))
 plt.xticks(numpy.arange(0, 102, 11),labels=values['legend'][::11])
 plt.yticks(numpy.arange(104,111,0.5))
 plt.grid()

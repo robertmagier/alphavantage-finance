@@ -23,3 +23,12 @@ def generateLegend(row):
     hour = hour.split(':')
     tickDate = tickDate[2].split('.')[1]
     return '{}\n{}:{}'.format(tickDate,hour[0],hour[1])
+
+def calculateDiff(row):
+    diff = row['y_close'] - row['y_open']
+    return diff
+
+
+def calculateColor(row):
+    diff = calculateDiff(row)
+    return "green" if diff > 0 else "red"

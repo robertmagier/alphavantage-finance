@@ -42,6 +42,28 @@ class TestPrepareData(unittest.TestCase):
         herr = prep.calculateHighError(row)
         self.assertEqual(herr, 9)
 
+    def test_calculateDiff(self):
+        row = {
+            'y_open':11,
+            'y_close':13
+        }
+        diff = prep.calculateDiff(row)
+        self.assertEqual(diff, 2)
+
+    def test_calculateColor(self):
+        row = {
+            'y_open':11,
+            'y_close':13
+        }
+        color = prep.calculateColor(row)
+        self.assertEqual(color, 'green')
+        row = {
+            'y_open':13.1,
+            'y_close':13
+        }
+        color = prep.calculateColor(row)
+        self.assertEqual(color, 'red')
+
 
 
 if __name__ == '__main__':
