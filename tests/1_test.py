@@ -50,6 +50,14 @@ class TestPrepareData(unittest.TestCase):
         diff = prep.calculateDiff(row)
         self.assertEqual(diff, 2)
 
+    def test_generateLegend(self):
+        row = {
+            'time':'Time Series (5min).2020-04-09 14:50:00.1. open',
+        }
+        output = prep.generateLegend(row)
+        expected = "2020-04-09\n14:50"
+        self.assertEqual(output,expected)
+
     def test_calculateColor(self):
         row = {
             'y_open':11,
