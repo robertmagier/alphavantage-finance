@@ -38,7 +38,7 @@ prompt-toolkit==3.0.5
 ptyprocess==0.6.0
 public==2019.4.13
 py==1.8.1
-Pygments==2.6.1
+Pygments==2.7.4
 pylint==2.4.4
 pyparsing==2.4.6
 pytest==5.4.1
